@@ -40,6 +40,11 @@ source /opt/ros/galactic/setup.bash
 ros2 launch my_package robot.launch.py
 ```
 
+## Simulation Output Video
+The simulation output video is available in the below link:
+https://drive.google.com/file/d/1KYPS9RKzzgBERJ5pW6nN36-985M1n8JI/view?usp=sharing
+
+
 ### To run the ROS bag and capture data
 
 ```
