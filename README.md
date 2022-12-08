@@ -18,6 +18,7 @@ cd ~/ros2_ws/src
 ### Clone the repo into src folder
 ```
 git clone branch Week12_HW https://github.com/RR-Vignesh/obstacle_avoidance_gazebo.git
+```
 
 ### Building dolly packages
 ```
