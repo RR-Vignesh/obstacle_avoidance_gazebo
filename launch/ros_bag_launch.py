@@ -20,19 +20,44 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 # DEALINGS IN THE SOFTWARE.
 
-from launch import LaunchDescription
 from launch_ros.actions import Node
+from launch import LaunchDescription
+from launch.actions import DeclareLaunchArgument, ExecuteProcess, TimerAction
+from launch.conditions import IfCondition
+from launch.substitutions import LaunchConfiguration, PythonExpression
 
+##
+# @brief this launch file record publisher data
+#
+##
 def generate_launch_description():
+    """Method to launch the nodes in the package with bag record flag"""
+    bag_record = LaunchConfiguration('bag_record')
 
-    obstacle_avoidance = Node(
+    bag_record_arg = DeclareLaunchArgument(
+        'bag_record',
+        default_value='False'
+    )
+    obstacle_avoider_node = Node(
         package='obstacle_avoidance',
-        executable='obstacle_avoiding',
-        output='screen',
-        remappings=[
-            ('laser_scan', '/dolly/laser_scan'),
-            ('cmd_vel', '/dolly/cmd_vel'),
-        ]
+        executable='obstacle_avoiding'
+    )
+    
+    bag_record_conditioned = ExecuteProcess(
+        condition=IfCondition(
+            PythonExpression([bag_record,' == True'])
+        ),
+        cmd=[[
+            'cd ../results/bag_files && ros2 bag record /ObstacleAvoidance '
+        ]],
+        shell=True
     )
 
-    return LaunchDescription([obstacle_avoidance])
+    return LaunchDescription([
+        bag_record_arg,
+        obstacle_avoider_node,
+        TimerAction(
+            period=2.0,
+            actions=[bag_record_conditioned],
+        )
+    ])
