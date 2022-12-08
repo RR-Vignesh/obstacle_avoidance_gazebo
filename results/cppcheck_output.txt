@@ -1,0 +1,6 @@
+1/3 files checked 31% done
+Checking src/obstacle_avoiding.cpp ...
+2/3 files checked 71% done
+Checking src/reading_laser.cpp ...
+3/3 files checked 100% done
+
