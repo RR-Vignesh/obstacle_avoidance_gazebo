@@ -39,3 +39,22 @@ source /opt/ros/galactic/setup.bash
 ```
 ros2 launch my_package robot.launch.py
 ```
+
+### To run the ROS bag and capture data
+
+```
+ros2 launch obstacle_avoidance bag_record_launch.py bag_record:=True
+ros2 bag record /ObstacleAvoidance
+ros2 run obstacle_avoidance talker
+```
+
+### To view the recorded file info
+
+```
+ros2 bag info <foldername>
+```
+
+### To play the recorded file 
+```
+ros2 bag play <generated_folder>
+```
