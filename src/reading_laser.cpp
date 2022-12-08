@@ -45,8 +45,6 @@ class ReadingLaser : public rclcpp::Node {
 
 int main(int argc, char *argv[]) {
   rclcpp::init(argc, argv);
-//   auto node = std::make_shared();
-//   RCLCPP_INFO(node->get_logger(), "Hello my friends");
   rclcpp::spin(std::make_shared<ReadingLaser>());
   rclcpp::shutdown();
   return 0;
