@@ -10,6 +10,32 @@ find_package(ament_cmake REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
+
+add_executable(reading_laser src/reading_laser.cpp)
+ament_target_dependencies(reading_laser rclcpp std_msgs sensor_msgs)
+
+install(DIRECTORY
+	launch
+	DESTINATION share/${PROJECT_NAME}/
+)
+
+# moving robot
+add_executable(moving_robot src/moving_robot.cpp)
+ament_target_dependencies(moving_robot rclcpp geometry_msgs)
+
+# obstacle avoidance
+add_executable(obstacle_avoid src/obstacle_avoiding.cpp)
+ament_target_dependencies(obstacle_avoid rclcpp sensor_msgs geometry_msgs)
+
+install(TARGETS
+  moving_robot
+  reading_laser
+  obstacle_avoid
+  DESTINATION lib/${PROJECT_NAME}/
+)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
